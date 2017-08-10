@@ -1,3 +1,8 @@
+const setupEvents = require('./installers/windows/setupEvents');
+if (setupEvents.handleSquirrelEvent()) {
+    // squirrel event handled and app will exit in 1000ms, so don't do anything else
+    return;
+}
 const electron = require('electron');
 // Module to control application life.
 const app = electron.app;
@@ -13,7 +18,15 @@ let mainWindow;
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600});
+  mainWindow = new BrowserWindow({
+      titleBarStyle: 'hidden',
+      width: 800,
+      height: 600,
+      minWidth: 800,
+      minHeight: 600,
+      backgroundColor: '#ffffff',
+      icon: path.join(__dirname, 'assets/icons/png/64x64.png')
+  });
 
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
@@ -22,7 +35,7 @@ function createWindow () {
     slashes: true
   }));
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
+  //mainWindow.webContents.openDevTools()
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
@@ -30,7 +43,9 @@ function createWindow () {
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
     mainWindow = null
-  })
+  });
+
+  require('./menu/mainmenu')
 }
 
 // This method will be called when Electron has finished
