@@ -1,17 +1,14 @@
 {
   "name": "electron-demo",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "description": "An Electron Demo",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
   },
-  "repository": "https://github.com/electron/electron-quick-start",
+  "repository": "https://github.com/simonzhangxin/electron-demo.git",
   "keywords": [
     "Electron",
-    "quick",
-    "start",
-    "tutorial",
     "demo"
   ],
   "author": "Simon",
