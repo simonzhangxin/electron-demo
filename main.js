@@ -1,17 +1,20 @@
-const setupEvents = require('./installers/windows/setupEvents');
-if (setupEvents.handleSquirrelEvent()) {
-    // squirrel event handled and app will exit in 1000ms, so don't do anything else
-    return;
-}
 const electron = require('electron');
 // Module to control application life.
 const app = electron.app;
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow;
-
+const {appUpdater} = require('./autoUpdater');
 const path = require('path');
 const url = require('url');
 
+if (require('electron-squirrel-startup')) {
+    app.quit();
+}
+const setupEvents = require('./installers/windows/setupEvents');
+if (setupEvents.handleSquirrelEvent()) {
+    // squirrel event handled and app will exit in 1000ms, so don't do anything else
+    return;
+}
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
@@ -36,6 +39,10 @@ function createWindow () {
   }));
   // Open the DevTools.
   //mainWindow.webContents.openDevTools()
+
+   // check update
+   const page = mainWindow.webContents;
+   page.once('did-frame-finish-load', appUpdater);
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
