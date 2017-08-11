@@ -38,20 +38,20 @@ function createWindow () {
     slashes: true
   }));
   // Open the DevTools.
-  //mainWindow.webContents.openDevTools()
+  // mainWindow.webContents.openDevTools()
 
-   // check update
-   //Can't call updater unless app is installed !!!
-   const page = mainWindow.webContents;
-   page.once('did-frame-finish-load', appUpdater);
+  // check update
+  //Can't call updater unless app is installed !!!
+  const page = mainWindow.webContents;
+  page.once('did-frame-finish-load', appUpdater);
 
-   // Emitted when the window is closed.
-   mainWindow.on('closed', function () {
+  // Emitted when the window is closed.
+  mainWindow.on('closed', function () {
     // Dereference the window object, usually you would store windows
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
-     mainWindow = null
-   });
+    mainWindow = null
+  });
 
   require('./menubar')
 }
